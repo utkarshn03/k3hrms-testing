@@ -1,6 +1,6 @@
 // import { useEffect } from "react";
 import { useState } from "react";
-import TableData from "./kiittabledata";
+
 
 function Table() {
 
@@ -22,7 +22,7 @@ function Table() {
   const tdData = () => {
     return TableData.map((data,i) => {
       return (
-        <tr className="border-gray-400 border-b hover:bg-green-300 opacity-80 transition ease-in-out duration-100" key={i}>
+        <tr className="border-gray-400 border-b hover:bg-green-300 opacity-80 transition ease-in-out duration-100 pt-4 text-lg" key={i}>
           {column.map((v) => {
             return <td>{data[v]}</td>;
           })}
@@ -32,7 +32,7 @@ function Table() {
   };
 
   return (
-    <div className=" bg-white rounded-lg justify-center overflow-x-auto bg-opacity-70 shadow-lg ">
+    <div className=" shadow-lg rounded-lg overflow-hidden mx-2 md:mx-10 my-8">
     <table className="table w-full text-black relative">
       <thead className=" text-black bg-gray-200 text-sm w-full bg-opacity-60 uppercase sm:rounded-lg">
         <tr>{ThData()}</tr>
