@@ -1,12 +1,24 @@
-
+import React, { useState, useContext } from "react";
+import axios from "axios";
+import { UserContext } from "../UserContext";
 
 function Test() {
+
+  
+  const [redirect, setRedirect] = useState(false);
+  const { setUser, user } = useContext(UserContext);
+
+  async function logout() {
+		await axios.post("/api/user/logout");
+		setRedirect("/");
+		setUser(null);
+	}
+
   return (
         <>
-        <button className='text-black'>Click me!</button>
-        <p className='text-black'>
-            wdhwjhdqjwh
-        </p>
+        {/* <p className="text-xl">{user.email}</p> */}
+        <button onClick={logout} className='text-black'>Logout</button>
+        
         </>
   );
 }

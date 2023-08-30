@@ -30,7 +30,6 @@ export function UserContextProvider({ children }) {
             console.error(error);
         });
 		fetchUser();
-		// console.clear();
 	};
 
 	// useEffect(() => {

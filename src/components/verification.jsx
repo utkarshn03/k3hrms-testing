@@ -1,25 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from 'axios';
+import axios, { AxiosError } from "axios";
 import toasterror from "../toasts/toasterror";
 import toastsuccess from "../toasts/toastsuccess";
+import { UserContext } from '../UserContext';
 
 const Verification = () => {
 
     const [ otp , setOtp ] = useState("");
-    const [ redirect, setRedirect ] = useState(false);
+    const [ redirect, setRedirect ] = useState(false);    
+	  const { user, setUser } = useContext(UserContext);
 
     async function auth(ev){
       ev.preventDefault();
       try{
-        const res = await axios.post("/api/user/verify_user", { otp });
+
+        const un = user.username;
+        const res = await axios.post("/api/auth/verify_user", { un, otp });
         console.log(res);
         if(res.status === 200){
 
-            toast.success("Verified", {toastsuccess});
-              toast.success("Redirecting to pass reset", {toastsuccess});
-            setRedirect(true);
+          toast.success("Verified", {toastsuccess});
+          toast.success("Redirecting to pass reset", {toastsuccess});
+          setRedirect(true);
         }
 
       } catch(err){
@@ -61,7 +65,7 @@ const Verification = () => {
             <h2 className="mt-6 mb-4 text-center text-4xl font-bold tracking-tight text-gray-900">
               Account Verification
             </h2>
-            <p>Check your work email! <span className='text-black font-semibold'>{" "} test@xyz</span></p>
+            <p>Check your work email! <span className='text-black font-semibold'>{user.email}</span></p>
 
             <form className="space-y-6 mt-6" onSubmit={auth} >
               

@@ -68,9 +68,9 @@ const Kiittabledata = () => {
         <tbody className="text-base ">
           {records.map((d, i) => (
             <tr className="hover:text-lg transition ease-in-out  hover:bg-green-200" key={i}>
-              <td>{d.id}</td>
-              <td>{d.color}</td>
-              <td>{d.vlaue}</td>
+              <td>{d.uhid_no}</td>
+              <td>{d.patient_name}</td>
+              <td>{d.bill_id}</td>
               <td className="gap-x-4">
                 <button className="text-white text-base bg-gray-500 rounded-md px-2 py-2 mx-0.5 hover:bg-gray-700">
                   {" "}

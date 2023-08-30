@@ -42,6 +42,8 @@ const Kiittabledata = () => {
     }
   }
 
+  
+
   return (
     <div className="container mt-5">
       <ToastContainer
@@ -92,7 +94,8 @@ const Kiittabledata = () => {
                 </button>
               </td>
             </tr>
-          ))}
+          ))} 
+
         </tbody>
       </table>
     </div>

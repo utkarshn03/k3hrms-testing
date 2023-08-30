@@ -1,9 +1,14 @@
-import React from 'react';
+import { React, useState, useContext } from 'react';
 import { ToastContainer, toast } from "react-toastify";
+import { UserContext } from "../UserContext";
 import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
 
-const firstauth = () => {
+const Firstauth = () => {
+
+  const [password, setPassword] = useState("");
+  const [redirect, setRedirect] = useState(false);
+  const { setUser, user } = useContext(UserContext);
 
     async function passupdate(ev){
       ev.preventDefault();
@@ -77,4 +82,4 @@ const firstauth = () => {
   )
 }
 
-export default firstauth
+export default Firstauth
