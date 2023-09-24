@@ -10,11 +10,6 @@ const Kiitp = () => {
 
   const handleComponent = (pages) => setPage(pages);
 
-  // const navigation =[
-  //   { name: "Back", changep: " "},
-  //   { name: "Add Candidate Details", changep: " "}
-  // ]
-
   return (
     <div>
       <Header />
@@ -40,7 +35,7 @@ const Kiitp = () => {
         </>
       ) : (
         <>
-          <div className="py-8 bg-gray-100 rounded-lg md:w-3/4 px-8 mx-8 my-24 bg-opacity-90 justify-center shadow-lg">
+          <div className="py-8 bg-gray-100A rounded-lg md:w-3/4 px-8 mx-8 my-24 bg-opacity-90 justify-center shadow-lg">
             <div className="text-left">
               <div className=" flex ">
                 <h2 className="text-3xl font-semibold text-green-600  my-4 mx-2">

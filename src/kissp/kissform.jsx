@@ -1,182 +1,294 @@
-import { BiKey } from "react-icons/bi";
+import React, { useState } from "react";
+import axios from "axios";
+import { useEffect } from "react";
+import { nanoid } from "nanoid";
 
-export default function Kiitform() {
+
+const Kissform = () => {
+
+  const [dataTable, setDataTable] = useState([]);
+  const [options, setOptions] = useState([]);
+  const [items, setItems] = useState([]);
+
+  const [kissinputs, setKissInputs] = useState({
+    date: "",
+    items: "",
+    product_id: "",
+    quantity: 1,
+    price: "",
+  });
+
+  function handleChange(event) {
+    console.log(kissinputs);
+    console.log(event);
+    setKissInputs((prevFormData) => {
+      return {
+        ...prevFormData,
+        [event.target.name]: event.target.value,
+      };
+    });
+    console.log(kissinputs);
+  }
+
+  function handleCart(event) {
+    event.preventDefault();
+    const newEntry = {
+      id: nanoid(),
+      date: kissinputs.date,
+      items: kissinputs.items,
+      product_id: kissinputs.product_id,
+      quantity: kissinputs.quantity,
+      price: kissinputs.price,
+    };
+    const add = [];
+  }
+  const Tablerow = ({ data, column }) => {
+    return (
+      <tbody>
+        {data.map((item, index) => (
+          <TableRow item={item} column={column} />
+        ))}
+      </tbody>
+    );
+  };
+
+  const TableHeadItem = ({ item }) => <th>{item.heading}</th>;
+  const TableRow = ({ item, column }) => (
+    <tr>
+      {column.map((columnItem, index) => {
+        if (columnItem.value.includes(".")) {
+          const itemSplit = columnItem.value.split("."); //['address', 'city']
+          return <td>{item[itemSplit[0]][itemSplit[1]]}</td>;
+        }
+
+        return <td>{item[`${columnItem.value}`]}</td>;
+      })}
+    </tr>
+  );
+
+  // //axios
+  // const apikiss = ipapi + "/api/kiss/add";
+  // const apikissproducts = ipapi + "/api/kiss/products";
+
+  // useEffect(() => {
+  //   axios(apikiss)
+  //     .then((res) => setDataTable(res.data))
+  //     .catch((err) => console.log(err));
+  // }, []);
+
+  // useEffect(() => {
+  //   axios.get(apikissproducts)
+  //     .then((res) => setItems(res.data))
+
+  //     .catch((error) => console.log(error));
+  // }, []);
+
+  //table columns
+
+  const column = [
+    { heading: "Product id", value: "product_id" },
+    { heading: "Item Name", value: "items" },
+    { heading: "Quantity", value: "quantity" },
+    { heading: "Price", value: "price" },
+  ];
+
+  const [val, setVal] = useState([]);
+  console.log(val);
+  const [validated, setValidated] = useState([]);
+
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    setValidated(true);
+  };
+
+  // const loadOptions = async (inputValue, callback) => {
+  //   try {
+  //     const response = await axios.get(apikissproducts);
+  //     const data = response.data;
+  //     console.log(data);
+  //     const options = data.map((item) => ({
+  //       value: item.id,
+  //       label: item.name,
+  //     }));
+  //     setOptions(options);
+  //     callback(options);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
   return (
-    <form>
-      <div className="space-y-10 mb-10">      
+    <div>
+      <div className="container">
+        <h4 className="text-success mb-0">Add Cart</h4>
+        <p className="mb-3">
+          <small className="text-muted">Add Product</small>
+        </p>
+        <form>
+          <div className="mt-3 mb-3">
+            <div className="border rounded-4 p-4">
+              <h5 className="mb-4">Basic Details</h5>
+              <div className="row">
+                <div className="col-sm">
+                  <div className="mb-3">
+                    <label for="dobfloatingInput">Date of Purchase</label>
+                    <input
+                      type="date"
+                      className="form-control"
+                      id="dobfloatingInput"
+                      required
+                      onChange={handleChange}
+                      name="date"
+                    />
+                  </div>
+                </div>
 
-        <div className="border-b border-green-900/10 pb-12 mt-10">
-          <h2 className="text-2xl font-semibold leading-6 text-gray-900">Product Purchase Information</h2>
-
-          <div className="mt-10 grid grid-cols-2 gap-x-6 gap-y-8 lg:grid-cols-10">
-          <div className="sm:col-span-3 text-left">
-              <label htmlFor="adm-ref" className="text-sm justify-center inline-flex font-medium leading-6 text-gray-900">
-              <BiKey className="w-5 h-5"/> {" "}Uhid No. 
-              </label>
-              <div className="mt-2">
-              
-                <input
-                
-                  type="text"
-                  name="adm-ref"
-                  id="adm-ref"
-                  autoComplete="given-name"
-                  className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
-                />
+                <div className="col-sm">
+                  <div className="mb-3">
+                    <label for="itemsfloatingInput">Items</label>
+                    <select className="form-select">
+                      {/* {items.map((item) => (
+                        <option key={item.pid} value={item.pid}>
+                          {item.product_name}
+                        </option>
+                      ))} */}
+                      <option>Engineering</option>
+                      <option>ITI</option>
+                      <option>Polytechnics </option>
+                    </select>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div className="sm:col-span-3 text-left">
-              <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
-                Name
-              </label>
-              <div className="mt-2">
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  autoComplete="given-name"
-                  className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
+              <div className="row">
+                <div className="col-sm">
+                  <div className="input-group mb-3">
+                    <input
+                      type="text"
+                      className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
+                      aria-label="Product Id"
+                      placeholder="Product ID"
+                      id="product_id"
+                      readonly
+                      disabled
+                      onChange={handleChange}
+                      value={kissinputs.product_id}
+                      name="product_id"
+                    />
+                  </div>
+                </div>
+                <div className="col-sm">
+                  <div className="input-group mb-3">
+                    <input
+                      type="number"
+                      className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
+                      aria-label="Amount (to the nearest dollar)"
+                      label="Enter Quantity"
+                      placeholder="Enter Quantity"
+                      id="quantity"
+                      onChange={handleChange}
+                      value={kissinputs.quantity}
+                      name="quantity"
+                    />
+                  </div>
+                </div>
+                <div className="col-sm">
+                  <div className="input-group mb-3">
+                    <span className="input-group-text">₹</span>
 
-            <div className="sm:col-span-4 text-left" >
-              <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-                Email address
-              </label>
-              <div className="mt-2">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
+                    <input
+                      type="text"
+                      className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
+                      aria-label="Amount (to the nearest dollar)"
+                      disabled
+                      readOnly
+                      id="price"
+                      onChange={handleChange}
+                      name="price"
+                      value={kissinputs.price * kissinputs.quantity}
+                    />
+                    <span className="input-group-text">.00</span>
+                  </div>
+                </div>
 
-            <div className="sm:col-span-3 text-left" >
-              <label htmlFor="mobno" className="block text-sm font-medium leading-6 text-gray-900">
-                Mobile number
-              </label>
-              <div className="mt-2">
-                <input
-                  id="number"
-                  name="mobno"
-                  type="mobno"
-                  autoComplete="phone"
-                  className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-
-            <div className="sm:col-span-3 text-left" >
-              <label htmlFor="amt" className="block text-sm font-medium leading-6 text-gray-900">
-                Amount Paid 
-              </label>
-              <div className="mt-2">
-                <input
-                  id="number"
-                  name="amt"
-                  type="amt"
-                  className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-
-            <div className="sm:col-span-2 text-left">
-              <label htmlFor="country" className="block text-sm font-medium leading-6 text-gray-900">
-                Billing type
-              </label>
-              <div className="mt-2">
-                <select
-                  id="country"
-                  name="country"
-                  autoComplete="country-name"
-                  className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                <button
+                  className=" btn-success"
+                  onClick={handleCart}
+                  type="button"
                 >
-                  <option>Self</option>
-                  <option>Family Member</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="col-span-3 sm:col-start-1 text-left">
-              <label htmlFor="street-address" className="block text-sm font-medium leading-6 text-gray-900">
-                Street address
-              </label>
-              <div className="mt-2">
-                <input
-                  type="text"
-                  name="street-address"
-                  id="street-address"
-                  autoComplete="street-address"
-                  className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-
-            <div className="sm:col-span-3  text-left">
-              <label htmlFor="city" className="block text-sm font-medium leading-6 text-gray-900">
-                City
-              </label>
-              <div className="mt-2">
-                <input
-                  type="text"
-                  name="city"
-                  id="city"
-                  autoComplete="address-level2"
-                  className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-
-            <div className="sm:col-span-2 text-left">
-              <label htmlFor="region" className="block text-sm font-medium leading-6 text-gray-900">
-                State / Province
-              </label>
-              <div className="mt-2">
-                <input
-                  type="text"
-                  name="region"
-                  id="region"
-                  autoComplete="address-level1"
-                  className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-
-            <div className="sm:col-span-2 text-left">
-              <label htmlFor="postal-code" className="block text-sm font-medium leading-6 text-gray-900">
-                Cost
-              </label>
-              <div className="mt-2">
-                <input
-                  type="text"
-                  name="postal-code"
-                  id="postal-code"
-                  autoComplete="postal-code"
-                  className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
-                />
+                  Add to cart
+                </button>
               </div>
             </div>
           </div>
-        </div>
 
-        
+          <div className="mt-3 mb-4">
+            <div className="border rounded-4 p-4">
+              <h5 className="text-success mb-4">Cart</h5>
+              <div className="row">
+                <div className="col-sm">
+                  <div className="table-responsive-sm">
+                    <table
+                      className="table table-hover table-responsive-sm"
+                      id="admsearch"
+                    >
+                      <thead>
+                        <tr>
+                          {column.map((item, index) => (
+                            <TableHeadItem item={item} />
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody className="">
+                        {/* {
+                      entry.map((e)=>{
+                        // <tr>
+                        //   <td>{e.product_id}</td>
+                        //   <td>{e.items}</td>
+                        //   <td>{e.quantity}</td>
+                        //   <td>{e.price}</td>
+                        // </tr>
+                        
+                      })
+                    } */}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* <!----><!----><!----> */}
+          <div className="mt-3 mb-3">
+            <div className="border rounded-4 p-4 text-end">
+              <button type="button" className="btn btn-danger btn">
+                Cancel
+              </button>
+              <button type="disabled" className="btn btn-success btn">
+                Add
+              </button>
+            </div>
+          </div>
+          <div className="input-group mb-3">
+            <label className="input-group-text" for="inputGroupFile01">
+              Upload
+            </label>
+            <input
+              type="file"
+              className="form-control"
+              id="inputGroupFile01"
+              required
+            />
+          </div>
+          <button>Submit</button>
+        </form>
       </div>
+    </div>
+  );
+};
 
-      <div className="mt-6 flex items-center justify-end gap-x-6">
-        <button type="button" className="text-sm font-semibold leading-6 text-white bg-red-500 rounded-md px-3 py-2 ">
-          Cancel
-        </button>
-        <button
-          type="submit"
-          className="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
-        >
-          Save
-        </button>
-      </div>
-    </form>
-  )
-}
+export default Kissform;

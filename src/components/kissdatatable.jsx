@@ -16,7 +16,7 @@ const toastinfo = {
   theme: "colored",
 };
 
-const Kiittabledata = () => {
+const Kisstabledata = () => {
   const [columns, setColumns] = useState([]);
   const [records, setRecords] = useState([]);
   const navigate = useNavigate();
@@ -99,4 +99,4 @@ const Kiittabledata = () => {
   );
 };
 
-export default Kiittabledata;
+export default Kisstabledata;

@@ -5,12 +5,12 @@ import { MdClose, MdMenu } from "react-icons/md";
 
 
 const navigation = [
-    { name: 'Home', href: ''},
-    { name: 'Kiit', href: ''},
-    { name: 'Kims', href: ''},    
-    { name: 'Kiss', href: ''},
-    { name: 'Temple', href: ''},
-    { name: 'Hospitality', href: ''},
+    { name: 'Home', href: '/k3/home'},
+    { name: 'Kiit', href: '/k3/kiit'},
+    { name: 'Kims', href: '/k3/kims'},    
+    { name: 'Kiss', href: '/k3/kiss'},
+    { name: 'Temple', href: '/k3/temple'},
+    { name: 'Hospitality', href: '/k3/hospitality'},
 ]
 
 function classNames(...classes) {
@@ -19,7 +19,7 @@ function classNames(...classes) {
 
 export default function Example() {
   return (
-    <Disclosure as="nav" className=" text-white ">
+    <Disclosure as="nav" className=" text-white bg-green-100">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-8 sm:px-6 lg:px-8 backdrop-blur-xl ">

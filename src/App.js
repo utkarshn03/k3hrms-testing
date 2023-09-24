@@ -5,7 +5,10 @@ import axios from "axios";
 import Authenticator from "./Authprovider";
 import Login from "./page/loginpage.jsx";
 import Kiitp from "./kiitp/kiitp.jsx";
-import Kimsp from "./templep/templep.jsx";
+import Hospitalityp from "./hospitalityp/hospitalityp.jsx";
+import Kimsp from "./kimsp/kimsp";
+import Kissp from "./kissp/kissp.jsx";
+import Templep from "./templep/templep.jsx";
 import Test from "./components/test.jsx";
 import Firstauth from "./components/firstauth.jsx";
 import Header from "./components/header"
@@ -39,7 +42,11 @@ function App() {
           <Route path="/k3/kiit" element={<Kiitp title="Kiit" />} />
 						
 
-
+          <Route path="/k3/kims" element={<Kimsp title="kims" />} />
+          <Route path="/k3/kiss" element={<Kissp title="kiss" />} />
+          
+          <Route path="/k3/temple" element={<Templep title="temple" />} />
+          <Route path="/k3/hospitality" element={<Hospitalityp title="hospitality" />} />
             	<Route path="/k3/kims" element={<Kimsp title="kims" />} />
               <Route path="/k3/admin/newuser" element={<Test title="kims" />} />
               <Route path="/test" element={<Test title="Test" />} />

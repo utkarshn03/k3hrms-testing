@@ -16,7 +16,7 @@ const Kiitp = () => {
       {page === 0 ? (
         <>
           {" "}
-          <div className="py-8 bg-white rounded-lg lg:w-2/3  px-8 mx-8 my-24 bg-opacity-80 justify-center shadow-xl">
+          <div className="py-8 bg-gray-100 rounded-lg lg:w-2/3  px-8 mx-8 my-24 bg-opacity-80 justify-center shadow-xl">
             <div className="text-left">
               <div className="flex">
                 <h2 className="text-3xl font-semibold text-green-500  my-4 mx-2">
@@ -35,7 +35,7 @@ const Kiitp = () => {
         </>
       ) : (
         <>
-          <div className="py-8 bg-white rounded-lg md:w-3/4 px-8 mx-8 my-24 bg-opacity-90 justify-center shadow-lg">
+          <div className="py-8 bg-gray-100 rounded-lg md:w-3/4 px-8 mx-8 my-24 bg-opacity-90 justify-center shadow-lg">
             <div className="text-left">
               <div className=" flex ">
                 <h2 className="text-3xl font-semibold text-green-600  my-4 mx-2">
